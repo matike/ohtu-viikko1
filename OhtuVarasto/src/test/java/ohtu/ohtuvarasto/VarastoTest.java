@@ -39,6 +39,21 @@ public class VarastoTest {
     }
 
     @Test
+    public void alleYhdenLisaysEiMuutaSaldoa() {
+        varasto.lisaaVarastoon(-1);
+
+        assertEquals(0, varasto.getSaldo(), vertailuTarkkuus);
+    }
+
+    @Test
+    public void lisaysTayttaaVaraston() {
+        varasto.lisaaVarastoon(20);
+
+        // saldon pitäisi olla 10, koska varastoon ei mahdu enempää
+        assertEquals(10, varasto.getSaldo(), vertailuTarkkuus);
+    }
+
+    @Test
     public void lisaysLisaaPienentaaVapaataTilaa() {
         varasto.lisaaVarastoon(8);
 
@@ -56,6 +71,24 @@ public class VarastoTest {
     }
 
     @Test
+    public void alleYhdenOttaminenEiOtaMitaan() {
+        varasto.lisaaVarastoon(8);
+
+        double saatuMaara = varasto.otaVarastosta(-1);
+
+        assertEquals(0, saatuMaara, vertailuTarkkuus);
+    }
+    
+        @Test
+    public void yliSaldonOttaminenTyhjentaaVaraston() {
+        varasto.lisaaVarastoon(8);
+
+        double saatuMaara = varasto.otaVarastosta(20);
+
+        assertEquals(8, saatuMaara, vertailuTarkkuus);
+    }
+
+    @Test
     public void ottaminenLisääTilaa() {
         varasto.lisaaVarastoon(8);
 
@@ -69,10 +102,10 @@ public class VarastoTest {
     public void konstr() {
         varasto = new Varasto(-1);
         varasto = new Varasto(0);
-        varasto = new Varasto(1,1);
-        varasto = new Varasto(1,2);
-        varasto = new Varasto(-1,2);
-        varasto = new Varasto(-1,-1);
+        varasto = new Varasto(1, 1);
+        varasto = new Varasto(1, 2);
+        varasto = new Varasto(-1, 2);
+        varasto = new Varasto(-1, -1);
         varasto.toString();
     }
 }
